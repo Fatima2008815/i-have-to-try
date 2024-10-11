@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Craft the Future with Your Hands through Generative AI</title>
+
+      <style>
+        body {
+            font-family:  'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #000000, #64b7eb);
+            color: #ffffff;
+            text-align: center;
+        }
+        nav {
+            background-color:rgba(87, 142, 177, 0.8);
+            padding: 0;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-left: 10px;
+            height: 35px;
+        }
+        nav img {
+            height: 35px; /* زيادة حجم الشعار */
+            margin-right: 5px;
+        }
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 0 15px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1em; /* تقليل حجم الخط */
+            margin: 0;
+            display: none; /* إخفاء العناصر بشكل افتراضي */
+        }
+        nav a:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #ffffff;
+            font-size: 1.1em; /* تعديل الحجم عند التحويم */
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropbtn {
+            background-color: rgba(98, 186, 240, 0.8);
+            color: white;
+            padding: 5px 10px;
+            font-size: 1.1em; /* تقليل حجم الخط */
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.3s ease, color 0.3s ease; /* إضافة تأثير للتحويل ولون النص */
+        }
+        .dropdown-content {
+            display: none; /* إخفاء المحتوى المنسدل بشكل افتراضي */
+            position: absolute;
+            background-color: rgba(67, 146, 195, 0.8); /* جعل اللون شفاف */
+            min-width: 100px; /* تقليل الحد الأدنى لعرض القائمة */
+            z-index: 1;
+            right: 0; /* محاذاة العناصر إلى اليمين */
+            padding: 5px 0; /* حشوة رأسية */
+        }
+        .dropdown-content a {
+            display: block;
+            padding: 8px; /* الحفاظ على المسافات بين العناصر */
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            border-top: 1px solid #000; /* تعديل سمك الفاصل */
+            border-color: rgba(0, 0, 0, 0.5); /* لون الفاصل */
+            font-size: 1.05em; /* زيادة حجم الخط بشكل طفيف */
+        }
+        .dropdown-content a:first-child {
+            border-top: none; /* إزالة الفاصل من العنصر الأول */
+        }
+        .dropdown-content a:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        .show { 
+            display: block; /* عرض المحتوى عند الفتح */
+        }
+        header {
+            padding: 10px; /* تقليل المسافة أعلى الصورة */
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        
+        footer {
+            margin-top: 20px; /* زيادة المسافة بين الوصف والحقوق */
+            background-color: rgba(0, 0, 0, 0.6); /* جعل الخلفية أكثر شفافية */
+            padding: 10px 0;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1em;
+            font-weight: bold;
+        }
+        img.logo-rect {
+            width: 120px !important; /* تأكيد الحجم */
+            height: auto !important; /* الحفاظ على نسبة العرض إلى الارتفاع */
+        }
+        .gen-ai-text {
+            font-family: 'Courier New', Courier, monospace;
+            color: #000000;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        </style>
+     <script>
+        function toggleDropdown() {
+            const dropdownContent = document.querySelector('.dropdown-content');
+            const dropbtn = document.querySelector('.dropbtn');
+            dropdownContent.classList.toggle('show'); // استخدام toggle لتغيير العرض
+            if (dropdownContent.classList.contains('show')) {
+                dropbtn.style.transform = 'rotate(90deg)'; // تغيير شكل الزر عند الفتح
+                dropbtn.classList.add('active'); // إضافة الكلاس لتغيير اللون
+            } else {
+                dropbtn.style.transform = 'rotate(0deg)'; // إعادة الشكل عند الإغلاق
+                dropbtn.classList.remove('active'); // إزالة الكلاس عند الإغلاق
+            }
+        }
+
+        // إغلاق الشريط المنسدل عند الضغط في أي مكان في الصفحة
+        window.onclick = function(event) {
+            const dropdownContent = document.querySelector('.dropdown-content');
+            const dropbtn = document.querySelector('.dropbtn');
+            if (!event.target.matches('.dropbtn')) {
+                if (dropdownContent.classList.contains('show')) {
+                    dropdownContent.classList.remove('show');
+                    dropbtn.style.transform = 'rotate(0deg)';
+                    dropbtn.classList.remove('active');
+                }
+            }
+        }
+     </script> <script>
+        function toggleDropdown() {
+            const dropdownContent = document.querySelector('.dropdown-content');
+            const dropbtn = document.querySelector('.dropbtn');
+            dropdownContent.classList.toggle('show'); // استخدام toggle لتغيير العرض
+            if (dropdownContent.classList.contains('show')) {
+                dropbtn.style.transform = 'rotate(90deg)'; // تغيير شكل الزر عند الفتح
+                dropbtn.classList.add('active'); // إضافة الكلاس لتغيير اللون
+            } else {
+                dropbtn.style.transform = 'rotate(0deg)'; // إعادة الشكل عند الإغلاق
+                dropbtn.classList.remove('active'); // إزالة الكلاس عند الإغلاق
+            }
+        }
+
+        // إغلاق الشريط المنسدل عند الضغط في أي مكان في الصفحة
+        window.onclick = function(event) {
+            const dropdownContent = document.querySelector('.dropdown-content');
+            const dropbtn = document.querySelector('.dropbtn');
+            if (!event.target.matches('.dropbtn')) {
+                if (dropdownContent.classList.contains('show')) {
+                    dropdownContent.classList.remove('show');
+                    dropbtn.style.transform = 'rotate(0deg)';
+                    dropbtn.classList.remove('active');
+                }
+            }
+        }
+    </script>
+</head>
+        <body>
+            <nav>
+                <div class="logo-container">
+                    <img src="logo 1.png" alt="Square Logo" class="logo-square">
+                    <span class="gen-ai-text">GEN AI world</span>
+                </div>
+                <div class="dropdown">
+                    <button class="dropbtn" onclick="toggleDropdown()">☰</button> <!-- أيقونة القائمة -->
+                    <div class="dropdown-content">
+                        <a href="index.html">Home</a>
+                        <a href="info.html">Important Info</a>
+                        <a href="others.html">Others</a>
+                        <a href="smart-apps.html">Smart Apps</a>
+                        <a href="build-code.html">Build Your Code</a>
+                        <a href="contact.html">Contact Us</a>
+                    </div>
+                </div>
+            </nav>
+            <footer>
+                &copy; 2024 Al-Sha'thaa bint Jabir, grade 11/2...
+            </footer>
+</body>
+</html>           

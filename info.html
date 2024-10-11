@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Craft the Future with Your Hands through Generative AI</title>
+    <style>
+        body {
+            font-family:  'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #000000, #64b7eb);
+            color: #ffffff;
+            text-align: center;
+        }
+        nav {
+            background-color:rgba(87, 142, 177, 0.8);
+            padding: 0;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-left: 10px;
+            height: 35px;
+        }
+        nav img {
+            height: 35px; /* زيادة حجم الشعار */
+            margin-right: 5px;
+        }
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 0 15px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1em; /* تقليل حجم الخط */
+            margin: 0;
+            display: none; /* إخفاء العناصر بشكل افتراضي */
+        }
+        nav a:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #ffffff;
+            font-size: 1.1em; /* تعديل الحجم عند التحويم */
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropbtn {
+            background-color: rgba(98, 186, 240, 0.8);
+            color: white;
+            padding: 5px 10px;
+            font-size: 1.1em; /* تقليل حجم الخط */
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.3s ease, color 0.3s ease; /* إضافة تأثير للتحويل ولون النص */
+        }
+        .dropdown-content {
+            display: none; /* إخفاء المحتوى المنسدل بشكل افتراضي */
+            position: absolute;
+            background-color: rgba(67, 146, 195, 0.8); /* جعل اللون شفاف */
+            min-width: 100px; /* تقليل الحد الأدنى لعرض القائمة */
+            z-index: 1;
+            right: 0; /* محاذاة العناصر إلى اليمين */
+            padding: 5px 0; /* حشوة رأسية */
+        }
+        .dropdown-content a {
+            display: block;
+            padding: 8px; /* الحفاظ على المسافات بين العناصر */
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            border-top: 1px solid #000; /* تعديل سمك الفاصل */
+            border-color: rgba(0, 0, 0, 0.5); /* لون الفاصل */
+            font-size: 1.05em; /* زيادة حجم الخط بشكل طفيف */
+        }
+        .dropdown-content a:first-child {
+            border-top: none; /* إزالة الفاصل من العنصر الأول */
+        }
+        .dropdown-content a:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        .show { 
+            display: block; /* عرض المحتوى عند الفتح */
+        }
+        header {
+            padding: 10px; /* تقليل المسافة أعلى الصورة */
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        
+        footer {
+            margin-top: 20px; /* زيادة المسافة بين الوصف والحقوق */
+            background-color: rgba(0, 0, 0, 0.6); /* جعل الخلفية أكثر شفافية */
+            padding: 10px 0;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1em;
+            font-weight: bold;
+        }
+        img.logo-rect {
+            width: 120px !important; /* تأكيد الحجم */
+            height: auto !important; /* الحفاظ على نسبة العرض إلى الارتفاع */
+        }
+        .gen-ai-text {
+            font-family: 'Courier New', Courier, monospace;
+            color: #000000;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        #title {
+            color: rgb(255, 255, 255); /* لون العنوان */
+            font-size: 20px; /* حجم خط العنوان */
+            margin-top: 50px; /* مسافة من بداية الصفحة إلى العنوان */
+            margin-bottom: 30px; /* مسافة بين العنوان والمربع الأسود */
+            font-weight: bold; /* جعل الخط عريض */
+            text-align: center; /* محاذاة العنوان في الوسط */
+        }
+        #text-container {
+            background-color: black; /* لون خلفية المربع */
+            color: #05eaff; /* لون النص الأخضر */
+            padding: 20px; /* إضافة مسافة داخل المربع */
+            overflow-wrap: break-word; /* كسر الكلمات عندما تصل إلى الحد */
+            border-radius: 8px; /* زوايا دائرية للمربع */
+            width: 80%; /* عرض المربع */
+            max-width: 600px; /* الحد الأقصى لعرض المربع */
+            margin: auto; /* مركز المربع في الصفحة */
+            position: relative; /* لتحديد موضع المؤشر */
+            text-align: left; /* محاذاة النص من اليمين إلى اليسار */
+            text-align: left;
+        }
+        #text {
+            display: inline; /* تغيير إلى inline للسماح للمؤشر بالحركة */
+            border-right: 2px solid #05eaff; /* لون المؤشر الأخضر */
+            animation: blink-caret 0.75s step-end infinite;
+            white-space: pre-wrap; /* الاحتفاظ بالمسافات */
+            font-size: 16px; /* حجم الخط أصغر */
+            padding-right: 2px; /* ترك مسافة صغيرة للمؤشر */
+            direction: ltr; /* جعل النص داخل العنصر يتبع الاتجاه الطبيعي للأحرف */
+        }
+        #countdown {
+            color: black; /* لون العد التنازلي */
+            font-size: 20px; /* حجم خط العد التنازلي */
+            margin-bottom: 10px; /* مسافة بين العد التنازلي والنص */
+        }
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: #05eaff; } /* لون المؤشر الأخضر */
+        }
+    </style>
+    <script>
+        function toggleDropdown() {
+            const dropdownContent = document.querySelector('.dropdown-content');
+            const dropbtn = document.querySelector('.dropbtn');
+            dropdownContent.classList.toggle('show'); // استخدام toggle لتغيير العرض
+            if (dropdownContent.classList.contains('show')) {
+                dropbtn.style.transform = 'rotate(90deg)'; // تغيير شكل الزر عند الفتح
+                dropbtn.classList.add('active'); // إضافة الكلاس لتغيير اللون
+            } else {
+                dropbtn.style.transform = 'rotate(0deg)'; // إعادة الشكل عند الإغلاق
+                dropbtn.classList.remove('active'); // إزالة الكلاس عند الإغلاق
+            }
+        }
+
+        // إغلاق الشريط المنسدل عند الضغط في أي مكان في الصفحة
+        window.onclick = function(event) {
+            const dropdownContent = document.querySelector('.dropdown-content');
+            const dropbtn = document.querySelector('.dropbtn');
+            if (!event.target.matches('.dropbtn')) {
+                if (dropdownContent.classList.contains('show')) {
+                    dropdownContent.classList.remove('show');
+                    dropbtn.style.transform = 'rotate(0deg)';
+                    dropbtn.classList.remove('active');
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <nav>
+        <div class="logo-container">
+            <img src="logo 1.png" alt="Square Logo" class="logo-square">
+            <span class="gen-ai-text">GEN AI world</span>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn" onclick="toggleDropdown()">☰</button> <!-- أيقونة القائمة -->
+            <div class="dropdown-content">
+                <a href="index.html">Home</a>
+                <a href="info.html">Important Info</a>
+                <a href="others.html">Others</a>
+                <a href="smart-apps.html">Smart Apps</a>
+                <a href="build-code.html">Build Your Code</a>
+                <a href="contact.html">Contact Us</a>
+            </div>
+        </div>
+    </nav>
+    <div id="title">There is useful information waiting for you, just wait for <span id="titleCountdown">5</span> seconds:</div>
+    <div id="text-container">
+        <div id="countdown"><span id="countdownValue">5</span></div>
+        <div id="text"></div>
+    </div>
+
+    <script>
+        const textElement = document.getElementById('text');
+        const countdownElement = document.getElementById('countdownValue');
+        const titleCountdownElement = document.getElementById('titleCountdown');
+        const fullText = "Artificial intelligence is a rapidly evolving technology that is radically changing the world we live in. It is expected to have a significant impact on various industries and sectors, including healthcare, education, agriculture, energy, and industry. In healthcare, AI is anticipated to improve medical diagnostics by analyzing medical data with high precision, potentially leading to enhanced quality of care, time savings, and reduced costs. In education, AI can contribute by designing personalized learning programs for each student based on their abilities and specific learning needs, which could improve educational outcomes and provide better learning opportunities for everyone.In agriculture, AI can help improve farming techniques by analyzing data on soil, climate, and crops, leading to increased agricultural productivity and reduced waste. In the energy sector, AI is expected to assist in developing more efficient solutions for managing and conserving energy, contributing to reducing carbon emissions and promoting sustainable development.In the industrial sector, AI has contributed to improving industrial processes and making them more efficient by automating many tasks that previously required human intervention. AI also aids in better supply chain management and demand forecasting for products, improving production and distribution efficiency.Despite the many opportunities that AI presents, there are also significant challenges to its development and use. Among these challenges are concerns related to privacy and digital security, as AI can contribute to the collection and analysis of vast amounts of personal data, raising concerns about how this data is protected from unauthorized access or misuse.Ultimately, AI remains a powerful tool that can enhance our lives in many ways, but it requires careful direction and management to ensure that the intended benefits are realized and that the challenges it poses are addressed."
+        let index = 0;
+
+        // العد التنازلي
+        let countdown = 5;
+        const countdownInterval = setInterval(() => {
+            countdownElement.innerText = countdown;
+            titleCountdownElement.innerText = countdown; // تحديث العنوان بالرقم الحالي
+            countdown--;
+            if (countdown < 0) {
+                clearInterval(countdownInterval);
+                startTyping(); // بدء الكتابة بعد انتهاء العد التنازلي
+            }
+        }, 1000);
+
+        // بدء الكتابة
+        function startTyping() {
+            const typingInterval = setInterval(() => {
+                if (index < fullText.length) {
+                    textElement.innerHTML += fullText[index++];
+                    // إذا وصل النص إلى الحد المسموح به، إضافة سطر جديد
+                    if (textElement.offsetHeight >= window.innerHeight - 100) {
+                        textElement.innerHTML += '<br>'; // إضافة سطر جديد
+                    }
+                } else {
+                    clearInterval(typingInterval);
+                }
+            }, 150); // سرعة الكتابة
+        }
+    </script>
+<footer>
+    &copy; 2024 Al-Sha'thaa bint Jabir, grade 11/2...
+</footer>
+</body>
+</html>
+   

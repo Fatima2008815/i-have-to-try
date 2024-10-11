@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Terms Visualization</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            position: relative;
+        }
+
+        .big-circle {
+            width: 400px; /* قطر الدائرة الكبيرة */
+            height: 400px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            position: absolute;
+            display: none; /* إخفاء الدائرة الكبيرة في البداية */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .circle {
+            width: 100px; /* قطر دائرة AI */
+            height: 100px; 
+            border-radius: 50%;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s;
+            z-index: 10;
+        }
+
+        .circle:hover {
+            transform: scale(1.1);
+        }
+
+        #ai {
+            font-size: 24px;
+            color: #ff5722;
+            font-weight: bold;
+        }
+
+        .term {
+            position: absolute;
+            cursor: pointer;
+            transition: transform 0.3s;
+            color: #000;
+            width: 80px; /* عرض الدائرة الصغيرة */
+            height: 80px; /* ارتفاع الدائرة الصغيرة */
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #e0e0e0;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            font-size: 14px; /* حجم خط المصطلحات */
+            text-align: center; /* محاذاة النص */
+        }
+
+        .term:hover {
+            transform: scale(1.1);
+        }
+
+        .gen-ai {
+            color: #4CAF50; /* لون بارز لقسم Gen AI */
+            font-weight: bold;
+        }
+
+        .back {
+            cursor: pointer;
+            margin-top: 20px;
+            font-size: 18px;
+            color: #2196F3;
+        }
+
+        #infoBox {
+            top: 100px; /* زيادة القيمة لتحقيق مسافة أعلى */
+            margin-top: 100px; /* إضافة مسافة فوق المربع */
+            display: none;
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            z-index: 20;
+            text-align: center; /* إضافة لتوسيط النص */
+        }
+
+        .term:nth-child(1) { bottom: 50%; left: 88%; transform: translate(-50%, 50%); } /* أسفل */
+        .term:nth-child(2) { bottom: 50%; left: 88%; transform: translate(-50%, 50%); } /* أسفل */
+        .term:nth-child(3) { top: 50%; left:12%; transform: translate(-50%, -50%); } /* يسار */
+        .term:nth-child(4) { top: 76%; right: 3%; transform: translate(-50%, -50%); } /* يمين */
+        .term:nth-child(5) { top: 76%; left: 23%; transform: translate(-50%, -50%); } /* شمال شرق */
+        .term:nth-child(6) { top: 87%; right: 30%; transform: translate(-50%, -50%); } /* شمال غرب */
+        .term:nth-child(7) { bottom: 55%; left:77%; transform: translate(-50%, -50%); } /* جنوب شرق */
+        .term:nth-child(8) { bottom: 67%; right: 31%; transform: translate(-50%, -50%); } /* جنوب غرب */
+        .term:nth-child(9) { bottom:56%; right: 57%; transform: translate(-50%, -50%); } /* وسط */
+    </style>
+</head>
+<body>
+    <div class="big-circle" id="expansion">
+        <div class="term" onclick="showInfo('توليدي')">توليدي</div>
+        <div class="term" onclick="showInfo('تعلم آلي')">تعلم آلي</div>
+        <div class="term" onclick="showInfo('روبوتات')">روبوتات</div>
+        <div class="term" onclick="showInfo('رؤية حاسوبية')">رؤية حاسوبية</div>
+        <div class="term" onclick="showInfo('تحليل بيانات')">تحليل بيانات</div>
+        <div class="term" onclick="showInfo('معالجة لغة طبيعية')">معالجة لغة طبيعية</div>
+        <div class="term" onclick="showInfo('تعلم عميق')">تعلم عميق</div>
+        <div class="term" onclick="showInfo('أنظمة خبير')">أنظمة خبير</div>
+        <div class="term" onclick="showInfo('توليدي')">توليدي</div>
+    </div>
+
+    <div class="circle" id="ai" onclick="toggleExpansion()">
+        AI
+    </div>
+    <div id="infoBox">
+        <h2 id="infoTitle" style="color: #4CAF50;"></h2> <!-- عنوان المعلومات -->
+        <p id="infoText"></p> <!-- نص المعلومات -->
+        <div class="back" onclick="goBack()">رجوع</div> <!-- زر الرجوع -->
+    </div>
+
+    <script>
+        const expansion = document.getElementById('expansion');
+        const infoBox = document.getElementById('infoBox');
+        const infoText = document.getElementById('infoText');
+        let originalPositions = {};
+
+        function toggleExpansion() {
+            if (expansion.style.display === 'none' || expansion.style.display === '') {
+                expansion.style.display = 'flex'; // عرض الدائرة الكبيرة
+            } else {
+                expansion.style.display = 'none'; // إخفاء الدائرة الكبيرة
+            }
+        }
+
+        function showInfo(term) {
+            // حفظ المواقع والأحجام الأصلية لكل دائرة
+            const terms = document.querySelectorAll('.term');
+            originalPositions = Array.from(terms).map(term => ({
+                element: term,
+                position: term.getBoundingClientRect(),
+                size: { width: term.offsetWidth, height: term.offsetHeight }
+            }));
+
+            // إخفاء جميع الدوائر والدائرة الكبيرة
+            document.querySelectorAll('.term, .circle, .big-circle').forEach(el => el.style.display = 'none');
+
+            // تكبير الدائرة المختارة وعرضها في منتصف الشاشة
+            const selectedTerm = originalPositions.find(t => t.element.textContent === term).element;
+            selectedTerm.style.position = 'absolute';
+            selectedTerm.style.width = '200px';
+            selectedTerm.style.height = '200px';
+            selectedTerm.style.left = '50%';
+            selectedTerm.style.top = '50%';
+            selectedTerm.style.transform = 'translate(-50%, -50%)';
+            selectedTerm.style.display = 'flex';
+
+            // تعيين عنوان المعلومات
+            document.getElementById('infoTitle').textContent = term;
+
+            // هنا تضيف المعلومات لكل مصطلح حسب الاختيار
+            if (term === 'توليدي') {
+                document.getElementById('infoText').textContent = 'الذكاء التوليدي هو مجال في الذكاء الاصطناعي يركز على إنشاء المحتوى مثل النصوص والصور باستخدام نماذج تعلم الآلة.';
+            } else if (term === 'تعلم آلي') {
+                document.getElementById('infoText').textContent = 'التعلم الآلي هو فرع من فروع الذكاء الاصطناعي حيث يتم تدريب الحواسيب على التعلم من البيانات لاتخاذ قرارات أو تقديم توقعات.';
+            } else if (term === 'روبوتات') {
+                document.getElementById('infoText').textContent = 'علم الروبوتات يتناول تصميم وتطوير الروبوتات لأداء مهام متنوعة، سواء كانت صناعية أو ترفيهية.';
+            } else if (term === 'رؤية حاسوبية') {
+                document.getElementById('infoText').textContent = 'الرؤية الحاسوبية تتيح للحواسيب فهم وتحليل الصور والفيديوهات لتعزيز قدرات التعرف والتصنيف.';
+            } else if (term === 'تحليل بيانات') {
+                document.getElementById('infoText').textContent = 'تحليل البيانات يتضمن استخدام تقنيات إحصائية لفهم البيانات واستخراج رؤى مفيدة منها.';
+            } else if (term === 'معالجة لغة طبيعية') {
+                document.getElementById('infoText').textContent = 'معالجة اللغة الطبيعية تعنى بتمكين الحواسيب من فهم اللغة البشرية والتفاعل معها بطريقة طبيعية.';
+            } else if (term === 'تعلم عميق') {
+                document.getElementById('infoText').textContent = 'التعلم العميق هو نوع من التعلم الآلي الذي يعتمد على الشبكات العصبية الاصطناعية لفهم البيانات المعقدة.';
+            } else if (term === 'أنظمة خبير') {
+                document.getElementById('infoText').textContent = 'أنظمة الخبير هي أنظمة ذكية تُستخدم لتقليد قدرات اتخاذ القرار للبشر في مجالات محددة.';
+            }
+
+            // إظهار مربع المعلومات
+            infoBox.style.display = 'block';
+        }
+
+        function goBack() {
+            // إعادة عرض جميع الدوائر والمربعات الأصلية
+            document.querySelectorAll('.term, .circle').forEach(el => el.style.display = 'flex');
+            expansion.style.display = 'none';
+            infoBox.style.display = 'none';
+
+            // إعادة المواقع والأحجام الأصلية
+            originalPositions.forEach(({ element, position, size }) => {
+                element.style.position = '';
+                element.style.width = `${size.width}px`;
+                element.style.height = `${size.height}px`;
+                element.style.left = '';
+                element.style.top = '';
+                element.style.transform = '';
+            });
+        }
+
+        // إخفاء الدائرة الكبيرة ومربع المعلومات عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', function () {
+            expansion.style.display = 'none';
+            infoBox.style.display = 'none';
+        });
+    </script>
+</body>
+</html>

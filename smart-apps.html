@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Additional Page</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace; /* خط الأكواد */
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #000000, #64b7eb);
+            color: #ffffff;
+            text-align: center;
+        }
+        nav {
+            background-color: rgba(87, 142, 177, 0.8);
+            padding: 0;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-left: 10px;
+            height: 35px;
+        }
+        nav img {
+            height: 35px; /* زيادة حجم الشعار */
+            margin-right: 5px;
+        }
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 0 15px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1em; /* تقليل حجم الخط */
+            margin: 0;
+            display: none; /* إخفاء العناصر بشكل افتراضي */
+        }
+        nav a:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #ffffff;
+            font-size: 1.1em; /* تعديل الحجم عند التحويم */
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropbtn {
+            background-color: rgba(98, 186, 240, 0.8);
+            color: white;
+            padding: 5px 10px;
+            font-size: 1.1em; /* تقليل حجم الخط */
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.3s ease, color 0.3s ease; /* إضافة تأثير للتحويل ولون النص */
+        }
+        .dropdown-content {
+            display: none; /* إخفاء المحتوى المنسدل بشكل افتراضي */
+            position: absolute;
+            background-color: rgba(67, 146, 195, 0.8); /* جعل اللون شفاف */
+            min-width: 100px; /* تقليل الحد الأدنى لعرض القائمة */
+            z-index: 1;
+            right: 0; /* محاذاة العناصر إلى اليمين */
+            padding: 5px 0; /* حشوة رأسية */
+        }
+        .dropdown-content a {
+            display: block;
+            padding: 8px; /* الحفاظ على المسافات بين العناصر */
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            border-top: 1px solid #000; /* تعديل سمك الفاصل */
+            border-color: rgba(0, 0, 0, 0.5); /* لون الفاصل */
+            font-size: 1.05em; /* زيادة حجم الخط بشكل طفيف */
+        }
+        .dropdown-content a:first-child {
+            border-top: none; /* إزالة الفاصل من العنصر الأول */
+        }
+        .dropdown-content a:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        .show { 
+            display: block; /* عرض المحتوى عند الفتح */
+        }
+        footer {
+            margin-top: 20px; /* زيادة المسافة بين الوصف والحقوق */
+            background-color: rgba(0, 0, 0, 0.6); /* جعل الخلفية أكثر شفافية */
+            padding: 10px 0;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1em;
+            font-weight: bold;
+        }
+        img.logo-rect {
+            width: 120px !important; /* تأكيد الحجم */
+            height: auto !important; /* الحفاظ على نسبة العرض إلى الارتفاع */
+        }
+        .gen-ai-text {
+            font-family: 'Courier New', Courier, monospace;
+            color: #000000;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        .active {
+            color: #000000; /* تغيير اللون إلى الأسود عند النقر */
+        }
+
+        /* إعدادات المربعات */
+        .container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px; /* إضافة هامش حول الحاوية */
+        }
+        .box {
+            background-color: rgba(241, 251, 255, 0.2);
+            border-radius: 10px;
+            margin: 10px;
+            padding: 20px;
+            width: 200px; /* عرض ثابت للمربعات */
+            height: 220px; /* ارتفاع ثابت للمربعات */
+            position: relative; /* لتسهيل محاذاة النصوص */
+            transition: background-color 0.3s ease, transform 0.3s ease; /* تأثير التغير في الخلفية */
+            display: flex;
+            flex-direction: column; /* تغيير الاتجاه إلى عمودي */
+            justify-content: center;
+            align-items: center;
+            color: #000000;
+            font-weight: bold;
+            font-size:2.5em; /* حجم الخط داخل المربع */
+            transform-origin: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden; /* لإخفاء المحتويات الزائدة */
+            
+        }
+        .box:hover {
+            background-color: rgba(255, 255, 255, 0.4); /* تغيير اللون عند التحويم */
+            
+            transform: scale(1.05); /* إزاحة المربع قليلاً إلى اليسار وتكبيره */
+        }
+        
+        .box:hover .content {
+            transform: translateX(-100px); /* إزاحة النص إلى اليسار بمقدار 10 بكسل */
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7); /* خلفية شفافة للمربع الداخلي */
+            display: flex;
+            flex-direction: column; /* التأكد من ترتيب العناصر بشكل عمودي */
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            padding: 20px;
+            color: #fff; /* لون النص */
+            text-align: center;
+            font-size:0.7em; /* حجم النص داخل المربع الداخلي */
+            
+        }
+        .box:hover .overlay {
+            opacity: 1; /* إظهار المربع الداخلي عند التحويم */
+            transform: translateX(-20px);
+            font-size: 14;
+        
+        }
+        .text-container {
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .header-text {
+            font-family: 'Courier New', Courier, monospace;
+            color: white; /* اللون الأبيض */
+            font-weight: bold; /* خاصية بولد */
+            font-size: 2em; /* حجم الخط */
+            margin: 20px 0; /* هامش فوق وتحت */
+            padding: 85px ;
+        }
+        .small-text {
+           font-family: 'Courier New', Courier, monospace; /* استخدام نفس الخط */
+           font-size: 0.5em; /* زيادة حجم الخط قليلاً */
+           color: #ffffff; /* لون النص */
+           margin: 5px 0; /* هامش بين النص والنص الصغير */
+           text-align: center; /* محاذاة النص في المنتصف */
+           word-spacing: normal; /* إزالة تأثير تقليل المسافات بين الكلمات */
+           white-space: normal; /* السماح للنص بالتفاف إذا كان طويلًا */
+        }
+        
+        .link-container {
+    background-color: rgba(51, 171, 226, 0.445); /* لون خلفية المستطيل */
+    padding: 8px 16px; /* حشوة داخل المستطيل */
+    border-radius: 20px; /* جعل الحواف دائرية */
+    margin-top: 10px;
+    transition: background-color 0.3s ease; /* تأثير تغير اللون عند التحويم */
+    display: inline-block; /* لإبقاء الزر في موقعه */
+}
+a {
+    text-decoration: none; /* إزالة الخط السفلي لجميع الروابط */
+}
+.link-container:hover {
+    background-color: rgba(255, 255, 255, 0.6); /* تغيير اللون عند التحويم */
+}
+
+.link {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.8em;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.link:hover {
+    color: #0e2445; /* تغيير اللون عند تحويم النص */
+}
+
+
+        .rounded-rect {
+            background-color: rgba(255, 255, 255, 0.3);
+            padding: 10px 20px;
+            border-radius: 20px; /* إنشاء حواف ناعمة */
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .rounded-rect a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        .rounded-rect a:hover {
+            color: #0e2445; /* تغيير اللون عند التحويم */
+        }
+      
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo-container">
+            <img src="logo 1.png" alt="Square Logo" class="logo-square">
+            <span class="gen-ai-text">GEN AI world</span>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn" onclick="toggleDropdown()">☰</button> <!-- أيقونة القائمة -->
+            <div class="dropdown-content">
+                <a href="index.html">Home</a>
+                <a href="info.html">Important Info</a>
+                <a href="others.html">Others</a>
+                <a href="smart-apps.html">Smart Apps</a>
+                <a href="build-code.html">Build Your Code</a>
+                <a href="contact.html">Contact Us</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="header-text">Here’s a collection of amazing AI websites that will make your life easier and impress you with their creativity!</div>
+    <div class="container">
+        <div class="box">
+            <div class="overlay">
+                <div class="small-text">I am a creative platform that allows you to easily build and share AI applications. Explore machine learning models, interact with a vibrant community of developers, and turn your ideas into reality!</div>
+                <a href="https://huggingface.co/spaces" class="link-container">
+                    <span class="link">visit me</span>
+                </a>
+                
+            </div>
+            Hugging<br> Face
+        </div>
+        <div class="box">
+            <div class="overlay">
+                <div class="small-text">I am the clever tool that easily turns images into HTML code, helping creators bring their ideas to life with little effort. Let me be your partner on the path of creativity and design!</div>
+                <a href="https://www.blackbox.ai/" class="link-container">
+                    <span class="link">visit me</span>
+                </a>
+                
+            </div>
+           BLACKBOX<br>
+           AI
+        </div>
+        <div class="box">
+            <div class="overlay">
+                <div class="small-text">I am the fantastic tool that quickly helps you solve math problems by simply taking a picture. Let me be your companion on the journey to learning and mastering math!</div>
+                <a href="https://www.gauthmath.com/calculator" class="link-container">
+                    <span class="link">visit me</span>
+                </a>
+                
+            </div>
+            Gauth<br>Math
+        </div>
+        <div class="box">
+            <div class="overlay">
+                <div class="small-text">I am the clever tool that allows you to create videos quickly and effortlessly, transforming your ideas into stunning visual content in just a few simple steps. Let me help you share your creativity with the world!</div>
+                <a href="https://aiapp-ar.vidnoz.com/" class="link-container">
+                    <span class="link">visit me</span>
+                </a>
+                
+            </div>
+            Vidnoz<br>
+            AI
+        </div>
+        <!-- الأربعة مربعات الإضافية -->
+        <div class="box">
+            <div class="overlay">
+                <div class="small-text">I am the fantastic tool that turns your ideas into stunning videos quickly and easily. Let me help you showcase your creativity and share it with the world!</div>
+                <a href="https://lumen5.com/" class="link-container">
+                    <span class="link">visit me</span>
+                </a>
+                
+            </div>
+            lumen<br>5
+        </div>
+        <div class="box">
+            <div class="overlay">
+                <div class="small-text">I am the innovative platform that allows you to build stunning websites with a single touch, where you can easily bring your ideas to life without complexity. Let’s embark on your creative journey together!</div>
+                <a href="https://www.framer.com/" class="link-container">
+                    <span class="link">visit me</span>
+                </a>
+                
+            </div>
+            Framer
+        </div>
+        <div class="box">
+            <div class="overlay">
+                <div class="small-text">I am the amazing tool that turns your ideas into unique images in moments, where you can input your texts for me to create stunning artwork. Let me help you express your visions in a new way!</div>
+                <a href="https://www.craiyon.com/" class="link-container">
+                    <span class="link">visit me</span>
+                </a>
+                
+            </div>
+           Craiyon
+        </div>
+        <div class="box">
+            <div class="overlay">
+                <div class="small-text">I am the smart tool that helps you enhance your academic writing, where you can use me to proofread your texts and provide helpful feedback. Let me be your partner in achieving academic excellence!</div>
+                <a href="https://www.scribbr.com/" class="link-container">
+                    <span class="link">visit me</span>
+                </a>
+                
+            </div>
+            Scribbr
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2024 Al-Sha'thaa bint Jabir, grade 11/2...
+    </footer>
+
+    <script>
+        function toggleDropdown() {
+            document.querySelector(".dropdown-content").classList.toggle("show");
+        }
+
+        // إغلاق القائمة المنسدلة عند النقر خارجها
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>

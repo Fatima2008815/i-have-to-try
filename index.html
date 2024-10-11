@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Craft the Future with Your Hands through GEN AI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #000000, #64b7eb);
+            color: #ffffff;
+            text-align: center;
+        }
+        nav {
+            background-color:rgba(87, 142, 177, 0.8);
+            padding: 0;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-left: 10px;
+            height: 35px;
+        }
+        nav img {
+            height: 35px; /* زيادة حجم الشعار */
+            margin-right: 5px;
+        }
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 0 15px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1em; /* تقليل حجم الخط */
+            margin: 0;
+            display: none; /* إخفاء العناصر بشكل افتراضي */
+        }
+        nav a:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #ffffff;
+            font-size: 1.1em; /* تعديل الحجم عند التحويم */
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropbtn {
+            background-color: rgba(98, 186, 240, 0.8);
+            color: white;
+            padding: 5px 10px;
+            font-size: 1.1em; /* تقليل حجم الخط */
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.3s ease, color 0.3s ease; /* إضافة تأثير للتحويل ولون النص */
+        }
+        .dropdown-content {
+            display: none; /* إخفاء المحتوى المنسدل بشكل افتراضي */
+            position: absolute;
+            background-color: rgba(67, 146, 195, 0.8); /* جعل اللون شفاف */
+            min-width: 100px; /* تقليل الحد الأدنى لعرض القائمة */
+            z-index: 1;
+            right: 0; /* محاذاة العناصر إلى اليمين */
+            padding: 5px 0; /* حشوة رأسية */
+        }
+        .dropdown-content a {
+            display: block;
+            padding: 8px; /* الحفاظ على المسافات بين العناصر */
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            border-top: 1px solid #000; /* تعديل سمك الفاصل */
+            border-color: rgba(0, 0, 0, 0.5); /* لون الفاصل */
+            font-size: 1.05em; /* زيادة حجم الخط بشكل طفيف */
+        }
+        .dropdown-content a:first-child {
+            border-top: none; /* إزالة الفاصل من العنصر الأول */
+        }
+        .dropdown-content a:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        .show { 
+            display: block; /* عرض المحتوى عند الفتح */
+        }
+        header {
+            padding: 10px; /* تقليل المسافة أعلى الصورة */
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        h1 {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 2.5em;
+            margin: 5px 0 0; /* تقليل المسافة بين العنوان والهامش */
+        }
+        .description {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.2em;
+            margin: 0; /* إزالة الهوامش */
+            text-align: center; /* محاذاة النص إلى المركز */
+            font-weight: bold;
+            width: 82%;
+            height: auto; /* تحديد ارتفاع تلقائي للمربع الأزرق */
+            display: flex; /* استخدام flexbox */
+            flex-wrap: wrap; /* السماح بالتفاف النص */
+            justify-content: center; /* محاذاة عموديًا */
+            align-items: center; /* محاذاة أفقيًا */
+            margin: 20px auto; /* مركز مربع الوصف */
+            background-color: rgba(67, 146, 195, 0.8); /* خلفية الوصف */
+            border-radius: 10px; /* إضافة زوايا مدورة */
+            padding: 20px; /* إضافة حشوة داخلية */
+        }
+        footer {
+            margin-top: 20px; /* زيادة المسافة بين الوصف والحقوق */
+            background-color: rgba(0, 0, 0, 0.6); /* جعل الخلفية أكثر شفافية */
+            padding: 10px 0;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1em;
+            font-weight: bold;
+        }
+        img.logo-rect {
+            width: 120px !important; /* تأكيد الحجم */
+            height: auto !important; /* الحفاظ على نسبة العرض إلى الارتفاع */
+        }
+        .gen-ai-text {
+            font-family: 'Courier New', Courier, monospace;
+            color: #000000;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        .active {
+            color: #000000; /* تغيير اللون إلى الأسود عند النقر */
+        }
+        /* تأثير تغيير لون النص عند التحويم */
+        .word {
+            display: inline-block; /* جعل كل كلمة ككتلة منفصلة */
+            transition: color 0.3s ease; /* إضافة تأثير سلس لتغيير اللون */
+            margin: 0 5px; /* إضافة مسافات بين الكلمات */
+        }
+        .word:hover {
+            color: #003366; /* اللون الأزرق الغامق عند التحويم */
+        }
+        .explore-container {
+    display: flex;
+    align-items: center;
+    background-color: rgba(98, 186, 240, 0.8); /* لون خلفية المربع */
+    padding: 10px 10px; /* مسافة داخلية للمربع */
+    border-radius: 8px; /* انحناء الزوايا */
+    width: fit-content;
+    margin: 10px auto 40px auto; /* مسافة كبيرة بين المربع والمحتوى التالي */
+}
+
+.explore-text {
+    font-size: 1.7em; /* حجم الخط */
+    font-weight: bold;
+    color: white;
+    margin-right: 6px; /* مسافة بين النص والدائرة */
+    font-family: 'Courier New', Courier, monospace; /* خط الأكواد */
+}
+
+.circle-btn {
+    display: inline-block;
+    background-color: rgba(255, 255, 255, 0.8); /* لون خلفية الدائرة */
+    color: #000; /* لون السهم */
+    width: 30px; /* حجم الدائرة */
+    height: 30px; /* حجم الدائرة */
+    border-radius: 50%; /* جعل الدائرة مستديرة */
+    text-align: center;
+    line-height: 30px; /* محاذاة السهم عموديًا */
+    font-size: 1.5em; /* حجم الأيقونة */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* تأثير التحويم */
+}
+
+.circle-btn i {
+    font-weight: bold;
+}
+
+.circle-btn:hover {
+    background-color: rgba(0, 0, 0, 0.7); /* تغيير لون الدائرة عند التحويم */
+    color: white; /* تغيير لون الأيقونة عند التحويم */
+    transform: scale(1.1); /* تكبير الدائرة عند التحويم */
+}
+
+/* مسافة كبيرة بين المربع والمحتوى الذي يليه */
+.other-content {
+    margin-top: 60px; /* مسافة كبيرة */
+}
+
+
+    </style>
+    <script>
+        function toggleDropdown() {
+            const dropdownContent = document.querySelector('.dropdown-content');
+            const dropbtn = document.querySelector('.dropbtn');
+            dropdownContent.classList.toggle('show'); // استخدام toggle لتغيير العرض
+            if (dropdownContent.classList.contains('show')) {
+                dropbtn.style.transform = 'rotate(90deg)'; // تغيير شكل الزر عند الفتح
+                dropbtn.classList.add('active'); // إضافة الكلاس لتغيير اللون
+            } else {
+                dropbtn.style.transform = 'rotate(0deg)'; // إعادة الشكل عند الإغلاق
+                dropbtn.classList.remove('active'); // إزالة الكلاس عند الإغلاق
+            }
+      
+        }
+
+        // إغلاق الشريط المنسدل عند الضغط في أي مكان في الصفحة
+        window.onclick = function(event) {
+            const dropdownContent = document.querySelector('.dropdown-content');
+            const dropbtn = document.querySelector('.dropbtn');
+            if (!event.target.matches('.dropbtn')) {
+                if (dropdownContent.classList.contains('show')) {
+                    dropdownContent.classList.remove('show');
+                    dropbtn.style.transform = 'rotate(0deg)';
+                    dropbtn.classList.remove('active');
+                }
+            }
+        }
+
+        <script>
+    document.getElementById('qr-btn').addEventListener('click', function() {
+        document.getElementById('explore-box').style.display = 'none'; // إخفاء زر الاستكشاف
+        document.getElementById('qr-code-page').style.display = 'block'; // عرض صفحة QR
+
+        // إنشاء كود QR
+        new QRCode(document.getElementById("qrcode"), {
+            text: "http://example.com", // هنا ضع الرابط الذي تريد تحويله إلى QR
+            width: 128,
+            height: 128
+        });
+    });
+
+    document.getElementById('back-btn').addEventListener('click', function() {
+        document.getElementById('explore-box').style.display = 'flex'; // عرض مربع الاستكشاف مجددًا
+        document.getElementById('qr-code-page').style.display = 'none'; // إخفاء صفحة QR
+    });
+    </script>
+</head>
+<body>
+    <nav>
+        <div class="logo-container">
+            <img src="logo 1.png" alt="Square Logo" class="logo-square">
+            <span class="gen-ai-text">GEN AI world</span>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn" onclick="toggleDropdown()">☰</button> <!-- أيقونة القائمة -->
+            <div class="dropdown-content">
+                <a href="index.html">Home</a>
+                <a href="info.html">Important Info</a>
+                <a href="others.html">Others</a>
+                <a href="smart-apps.html">Smart Apps</a>
+                <a href="https://colab.research.google.com/">Build Your Code</a>
+                <a href="contact.html">Contact Us</a>
+            </div>
+        </div>
+    </nav>
+    
+    <header>
+        <img src="Screenshot_2024-09-26_184029-removebg-preview (1).png" alt="AI Logo" class="logo">
+        <h1>Craft the Future with Your Hands through <br> GEN AI</h1>
+        <br>
+        <div class="explore-container">
+    <span class="explore-text">Explore</span>
+    <div class="circle-btn" onclick="window.location.href='https://wall.sli.do/event/kkEDxWNUHkAdEWoSx3cMUp'">
+        <i class="fas fa-arrow-right"></i> <!-- أيقونة السهم -->
+    </div>
+</div>
+
+<!-- محتوى آخر بعد المربع -->
+<div class="other-content">
+    <!-- المحتوى التالي هنا -->
+</div>
+
+        
+    </header>
+    
+
+    <main>
+        
+        <div class="description">
+            Welcome to a unique experience! Get ready to explore the wonders of artificial intelligence and
+engage with generative programming techniques.In this session, we'll unlock the doors to creativity and dive
+into
+a
+world
+of
+limitless
+possibilities.
+Let’s
+learn
+together
+how
+AI
+can
+transform
+our
+ideas
+into
+tangible
+realities.
+Join
+us
+as
+we
+craft
+the
+future
+together!
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2024 Al-Sha'thaa bint Jabir, grade 11/2...
+    </footer>
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Terms Visualization</title>
+    <style>
+        body {
+            font-family:  'Courier New', Courier, monospace;
+            background-color: #011d3d;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-weight: bold;
+            position: relative;
+            
+        }
+
+        .big-circle {
+            width: 400px; /* قطر الدائرة الكبيرة */
+            height: 400px;
+            border-radius: 50%;
+            background-color: rgba(0, 77, 125, 0.9);
+            box-shadow: 0 0 20px rgba(2, 55, 82, 0.3);
+            position: absolute;
+            display: none; /* إخفاء الدائرة الكبيرة في البداية */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .circle {
+            width:120px; /* قطر دائرة AI */
+            height:120px; 
+            border-radius: 50%;
+            background-color:  rgba(65, 119, 153, 0.8);
+            box-shadow: 0 0 10px rgba(2, 47, 106, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s;
+            z-index: 10;
+        }
+
+        .circle:hover {
+            transform: scale(1.1);
+        }
+
+        #ai {
+            font-size: 24px;
+            color: #41d4f1;
+            font-weight: bold;
+        }
+
+        .term {
+            position: absolute;
+            cursor: pointer;
+            transition: transform 0.3s;
+            color: #0f2946;
+            width: 80px; /* عرض الدائرة الصغيرة */
+            height: 80px; /* ارتفاع الدائرة الصغيرة */
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color:  rgba(98, 212, 240, 0.8);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            font-size: 12px; /* حجم خط المصطلحات */
+            text-align: center; /* محاذاة النص */
+        }
+
+        .term:hover {
+            transform: scale(1.1);
+        }
+
+        .gen-ai {
+            color: #27d9e6; /* لون بارز لقسم Gen AI */
+            font-weight: bold;
+        }
+
+        .back {
+            cursor: pointer;
+            margin-top: 20px;
+            font-size: 18px;
+            color: #f5f5f5;
+        }
+
+        #infoBox {
+            top: 100px; /* زيادة القيمة لتحقيق مسافة أعلى */
+            margin-top: 100px; /* إضافة مسافة فوق المربع */
+            display: none;
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #58a7bf;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            z-index: 20;
+            text-align: center; /* إضافة لتوسيط النص */
+        }
+        #infoImage {
+    max-width: 100%;
+    height: auto;
+    margin-top: 10px;
+    display: none; /* سيتم إظهار الصورة بعد النقر */
+    align-items: center;
+    margin: 10px auto 0 auto; /* توسيط الصورة أفقياً مع إضافة مسافة علوية */
+    display: block; /* جعل الصورة عنصرًا كتليًا لتفعيل `margin: auto` */
+    border-radius: 5px; /* إضافة حواف مدورة إذا رغبت */
+}
+
+
+        .term:nth-child(1) { bottom: 50%; left: 88%; transform: translate(-50%, 50%); } /* أسفل */
+        .term:nth-child(2) { bottom: 50%; left: 88%; transform: translate(-50%, 50%); } /* أسفل */
+        .term:nth-child(3) { top: 50%; left:12%; transform: translate(-50%, -50%); } /* يسار */
+        .term:nth-child(4) { top: 76%; right: 3%; transform: translate(-50%, -50%); } /* يمين */
+        .term:nth-child(5) { top: 76%; left: 23%; transform: translate(-50%, -50%); } /* شمال شرق */
+        .term:nth-child(6) { top: 87%; right: 30%; transform: translate(-50%, -50%); } /* شمال غرب */
+        .term:nth-child(7) { bottom: 55%; left:77%; transform: translate(-50%, -50%); } /* جنوب شرق */
+        .term:nth-child(8) { bottom: 67%; right: 31%; transform: translate(-50%, -50%); } /* جنوب غرب */
+        .term:nth-child(9) { bottom:56%; right: 57%; transform: translate(-50%, -50%); } /* وسط */
+    </style>
+</head>
+<body>
+    <div class="big-circle" id="expansion">
+        <div class="term" onclick="showInfo('Generative AI')"></div>
+        <div class="term" onclick="showInfo('Machine Learning')">Machine Learning</div>
+        <div class="term" onclick="showInfo('Robotics')">Robotics</div>
+        <div class="term" onclick="showInfo('Computer Vision')">Computer Vision</div>
+        <div class="term" onclick="showInfo('Data Analytics')">Data Analytics</div>
+        <div class="term" onclick="showInfo('Natural Language Processing')">Natural Language Processing</div>
+        <div class="term" onclick="showInfo('Deep Learning')">Deep Learning</div>
+        <div class="term" onclick="showInfo('Expert Systems')">Expert Systems</div>
+        <div class="term" onclick="showInfo('Generative AI')">Generative AI</div>
+    </div>
+
+    <div class="circle" id="ai" onclick="toggleExpansion()">
+        AI
+    </div>
+    <div id="infoBox">
+        <h2 id="infoTitle" style="color: #0f2946;"></h2> <!-- عنوان المعلومات -->
+        <p id="infoText"></p> <!-- نص المعلومات -->
+        <img id="infoImage" src="" alt="Term Image" style="max-width: 100%; display: none;" /> <!-- صورة المصطلح -->
+        <div class="back" onclick="goBack()">-Return-</div> <!-- زر الرجوع -->
+    </div>
+
+    <script>
+        const expansion = document.getElementById('expansion');
+        const infoBox = document.getElementById('infoBox');
+        const infoText = document.getElementById('infoText');
+        let originalPositions = {};
+
+        function toggleExpansion() {
+            if (expansion.style.display === 'none' || expansion.style.display === '') {
+                expansion.style.display = 'flex'; // عرض الدائرة الكبيرة
+            } else {
+                expansion.style.display = 'none'; // إخفاء الدائرة الكبيرة
+            }
+        }
+
+        function showInfo(term) {
+    const terms = document.querySelectorAll('.term');
+    originalPositions = Array.from(terms).map(term => ({
+        element: term,
+        position: term.getBoundingClientRect(),
+        size: { width: term.offsetWidth, height: term.offsetHeight }
+    }));
+
+    document.querySelectorAll('.term, .circle, .big-circle').forEach(el => el.style.display = 'none');
+
+    const selectedTerm = originalPositions.find(t => t.element.textContent === term).element;
+    selectedTerm.style.position = 'absolute';
+    selectedTerm.style.width = '200px';
+    selectedTerm.style.height = '200px';
+    selectedTerm.style.left = '50%';
+    selectedTerm.style.top = '50%';
+    selectedTerm.style.transform = 'translate(-50%, -50%)';
+    selectedTerm.style.display = 'flex';
+
+    document.getElementById('infoTitle').textContent = term;
+
+    // هنا تضيف المعلومات والصورة لكل مصطلح حسب الاختيار
+    const infoImage = document.getElementById('infoImage');
+    if (term === 'Generative AI') {
+        document.getElementById('infoText').innerHTML = "Examples include: chat bot.";
+        infoImage.src = "yhj.png"; // ضع هنا مسار الصورة المناسبة
+    } else if (term === 'Machine Learning') {
+        document.getElementById('infoText').innerHTML = 'Examples include: most modern social media.';
+        infoImage.src = 'hello.png'; // مسار الصورة
+    } else if (term === 'Robotics') {
+        document.getElementById('infoText').innerHTML = 'Examples include: the Pepper robot.';
+        infoImage.src = 'download (3).png'; // مسار الصورة
+    } else if (term === 'Computer Vision') {
+        document.getElementById('infoText').innerHTML = 'Examples include: facial recognition.';
+        infoImage.src = 'download (4).png'; // مسار الصورة
+    } else if (term === 'Data Analytics') {
+        document.getElementById('infoText').innerHTML = 'Examples include: understanding Customer Needs.';
+        infoImage.src = 'download (2).png'; // مسار الصورة
+    } else if (term === 'Natural Language Processing') {
+        document.getElementById('infoText').innerHTML = 'Examples include: Alexa and Siri.';
+        infoImage.src = 'iiii.png'; // مسار الصورة
+    } else if (term === 'Deep Learning') {
+        document.getElementById('infoText').innerHTML = 'Examples include: self-driving cars.';
+        infoImage.src = 'download.png'; // مسار الصورة
+    } else if (term === 'Expert Systems') {
+        document.getElementById('infoText').innerHTML = 'Examples include: "Mycin" medical system.';
+        infoImage.src = 'download (1).png'; // مسار الصورة
+    }
+
+    // إظهار الصورة
+    infoImage.style.display = 'block';
+
+    // إظهار مربع المعلومات
+    infoBox.style.display = 'block';
+}
+
+        function goBack() {
+            // إعادة عرض جميع الدوائر والمربعات الأصلية
+            document.querySelectorAll('.term, .circle').forEach(el => el.style.display = 'flex');
+            expansion.style.display = 'none';
+            infoBox.style.display = 'none';
+
+            // إعادة المواقع والأحجام الأصلية
+            originalPositions.forEach(({ element, position, size }) => {
+                element.style.position = '';
+                element.style.width = `${size.width}px`;
+                element.style.height = `${size.height}px`;
+                element.style.left = '';
+                element.style.top = '';
+                element.style.transform = '';
+            });
+        }
+
+        // إخفاء الدائرة الكبيرة ومربع المعلومات عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', function () {
+            expansion.style.display = 'none';
+            infoBox.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
